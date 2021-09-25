@@ -1,0 +1,8 @@
+let playing=false;let player=null;let alreadySelected=false;const songs=["Kf4KIaI5tXE","NX-GkwQnzIo","9yvxOePWj3U","n_RYrVvRwQI"];function selectAndPlayVideo(id){console.log("selected song: "+id);player=new YT.Player('youtube-player',{height:"0",width:"0",videoId:id,playerVars:{autoplay:0,loop:0},events:{'onReady':function(e){console.log("ready")
+player.playVideo();},'onStateChange':function(e){if(e.state==0){console.log("0")
+setTimeout(()=>{let song=songs[Math.floor(Math.random*songs.length)];selectAndPlayVideo(song);},5000);}else if(e.state==1){console.log("1")
+playing=true;buttonHTML.src="https://i.imgur.com/IDzX9gL.png";}else if(e.state==2){console.log("2")
+playing=false;buttonHTML.src="https://i.imgur.com/quyUPXN.png";}}}});}
+let buttonHTML=document.getElementById("youtube-play-button");function onYouTubeIframeAPIReady(){buttonHTML.style.display="block";buttonHTML.addEventListener("click",()=>{if(playing){playing=false;buttonHTML.src="https://i.imgur.com/quyUPXN.png";player.pauseVideo();}
+else if(!playing){playing=true;buttonHTML.src="https://i.imgur.com/IDzX9gL.png";if(!alreadySelected){alreadySelected=true;let selectedSong=songs[Math.floor(Math.random()*songs.length)];console.log("song = "+selectedSong);selectAndPlayVideo(selectedSong);}else{player.playVideo();};}});}
+var tag=document.createElement('script');tag.src="https://www.youtube.com/iframe_api";var firstScriptTag=document.getElementsByTagName('script')[0];firstScriptTag.parentNode.insertBefore(tag,firstScriptTag);
